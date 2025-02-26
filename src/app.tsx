@@ -1,5 +1,6 @@
 // 运行时配置
 import { RunTimeLayoutConfig } from '@umijs/max';
+import './global.less';
 
 declare global {
   interface Window {

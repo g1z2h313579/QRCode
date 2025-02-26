@@ -6,6 +6,7 @@ import ja_JP from 'antd/locale/ja_JP';
 import { FunctionComponent, useMemo, useState } from 'react';
 
 // for date-picker i18n
+import { ENV_MOBILE, FONTREM } from '@/constants';
 import { history, Outlet } from '@umijs/max';
 import style from './layout.less';
 import { useMenu } from './useHook';
@@ -13,17 +14,18 @@ interface HeaderProps {
   [props: string]: any;
 }
 
-const px2rem = px2remTransformer({
-  rootValue: 14, // 32px = 1rem; @default 16
-});
 const Header: FunctionComponent<HeaderProps> = () => {
   const [current, setCurrent] = useState<string>('paymentList');
   const [keyPath, setKeyPath] = useState<string[]>(['paymentList', 'payment']);
   const menu = useMenu(current);
+  const envCode = useMemo(() => window.envCode as keyof typeof FONTREM, []);
+  const px2rem = px2remTransformer({
+    rootValue: FONTREM[envCode], // 32px = 1rem; @default 16
+  });
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
     setKeyPath(e.keyPath);
-    const baseUrl = window.envCode;
+    const baseUrl = envCode;
     const path = e.keyPath.toReversed().join('/');
     history.push(`/${baseUrl}/${path}`);
   };
@@ -53,6 +55,16 @@ const Header: FunctionComponent<HeaderProps> = () => {
     }
     return str;
   }, [current]);
+
+  if (envCode === ENV_MOBILE) {
+    return (
+      <ConfigProvider locale={ja_JP}>
+        <StyleProvider transformers={[px2rem]}>
+          <Outlet />
+        </StyleProvider>
+      </ConfigProvider>
+    );
+  }
 
   return (
     <div className={style.layout}>
@@ -89,11 +101,11 @@ const Header: FunctionComponent<HeaderProps> = () => {
         </div>
         <div className={style.brand}>{brand}</div>
       </div>
-      <ConfigProvider locale={ja_JP}>
-        <StyleProvider transformers={[px2rem]}>
+      <StyleProvider transformers={[px2rem]}>
+        <ConfigProvider locale={ja_JP}>
           <Outlet />
-        </StyleProvider>
-      </ConfigProvider>
+        </ConfigProvider>
+      </StyleProvider>
     </div>
   );
 };

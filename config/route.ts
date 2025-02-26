@@ -42,7 +42,7 @@ export const routesMap = {
     },
     {
       path: '/storeMobile',
-      layout: false,
+      // layout: false,
       routes: [
         {
           name: 'login',
