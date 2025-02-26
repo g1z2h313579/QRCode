@@ -129,13 +129,13 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
     <div className="payment-list">
       <div className="searchLimit">
         <Row>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('決済ID')}
               <Input key={'paymentId'} />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('決済区分')}
               <Radio.Group
@@ -148,7 +148,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
               />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('決済日時')}
               <DatePicker
@@ -156,10 +156,11 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setPaymentDate, ...props);
                 }}
+                className="datePickerCuz"
               />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('店舗')}
               <Input value={store} onChange={(e) => setStore(e.target.value)} />
@@ -167,7 +168,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
           </Col>
         </Row>
         <Row>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('商品ID')}
               <Input
@@ -176,7 +177,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
               />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('利用者ID')}
               <Input
@@ -185,7 +186,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
               />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('金額')}
               <Input
@@ -194,7 +195,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
               />
             </div>
           </Col>
-          <Col span={6}>
+          <Col xs={12} md={6}>
             <div className="searchLimitItem">
               {inputText('ステータス')}
               <Radio.Group
@@ -209,7 +210,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
           </Col>
         </Row>
         <Row>
-          <Col span={8}>
+          <Col xs={12} md={8}>
             <div className="searchLimitItem">
               {inputText('登録日')}
               <DatePicker
@@ -217,6 +218,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setLoginDateFrom, ...props);
                 }}
+                className="datePickerCuz"
               />
               ～
               <DatePicker
@@ -224,10 +226,11 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setLoginDateTo, ...props);
                 }}
+                className="datePickerCuz"
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col xs={12} md={8}>
             <div className="searchLimitItem">
               {inputText('更新日')}
               <DatePicker
@@ -235,6 +238,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setUpdateFrom, ...props);
                 }}
+                className="datePickerCuz"
               />
               ～
               <DatePicker
@@ -242,10 +246,11 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setUpdateTo, ...props);
                 }}
+                className="datePickerCuz"
               />
             </div>
           </Col>
-          <Col span={8}>
+          <Col xs={12} md={8}>
             <div className="searchLimitItem">
               {inputText('削除日')}
               <DatePicker
@@ -253,6 +258,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setDeleteFrom, ...props);
                 }}
+                className="datePickerCuz"
               />
               ～
               <DatePicker
@@ -260,6 +266,7 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
                 onChange={(...props) => {
                   dateOnchange(setDeleteTo, ...props);
                 }}
+                className="datePickerCuz"
               />
             </div>
           </Col>
@@ -282,7 +289,14 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
           </Button>
         </div>
       </div>
-      <Table columns={columns} dataSource={dataSource} />
+      <Table
+        scroll={{
+          x: 1300,
+        }}
+        rowKey={'paymentId'}
+        columns={columns}
+        dataSource={dataSource}
+      />
     </div>
   );
 };

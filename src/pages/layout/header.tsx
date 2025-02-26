@@ -1,4 +1,4 @@
-import Icon from '@ant-design/icons';
+// import Icon from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { ConfigProvider, Menu } from 'antd';
 import ja_JP from 'antd/locale/ja_JP';
@@ -33,7 +33,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
       {
         label: 'ダッシュボード',
         key: 'dashboard',
-        dashed: false,
+        // dashed: false,
         icon: <img src={dashboard} style={imgStyle} />,
         children: [
           {
@@ -63,7 +63,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
             style={imgStyle}
           />
         ),
-        dashed: false,
+        // dashed: false,
         children: [
           {
             label: '決済一覧',
@@ -165,9 +165,9 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
       <div className={style.header}>
         <div className={style.headerLogo}>
           <div className={style.logo}>LOGO</div>
-          <div className="login">
+          {/* <div className="login">
             <Icon type="user" />
-          </div>
+          </div> */}
         </div>
         <div className={style.menu}>
           <ConfigProvider
