@@ -1,3 +1,33 @@
-# README
+### 启动项目
 
-`@umijs/max` 模板项目，更多功能参考 [Umi Max 简介](https://umijs.org/docs/max/introduce)
+```
+// 运维系统
+npm run start:sysOpe
+```
+
+```
+// 店铺交易管理
+npm run start:stoTra
+```
+
+```
+// 店铺手机端
+npm run start:mobile
+```
+
+### 打包
+
+```
+// 运维系统
+npm run build:sysOpe
+```
+
+```
+// 店铺交易管理
+npm run build:stoTra
+```
+
+```
+// 店铺手机端
+npm run build:mobile
+```

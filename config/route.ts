@@ -1,32 +1,92 @@
-// // config/route.ts
-// export const routes: IBestAFSRoute[] = [
-//     {
-//       path: '/welcome',
-//       component: 'IndexPage',
-//       name: '欢迎', // 兼容此写法
-//       icon: 'testicon',
-//       // 更多功能查看
-//       // https://beta-pro.ant.design/docs/advanced-menu
-//       // ---
-//       // 新页面打开
-//       target: '_blank',
-//       // 不展示顶栏
-//       headerRender: false,
-//       // 不展示页脚
-//       footerRender: false,
-//       // 不展示菜单
-//       menuRender: false,
-//       // 不展示菜单顶栏
-//       menuHeaderRender: false,
-//       // 权限配置，需要与 plugin-access 插件配合使用
-//       access: 'canRead',
-//       // 隐藏子菜单
-//       hideChildrenInMenu: true,
-//       // 隐藏自己和子菜单
-//       hideInMenu: true,
-//       // 在面包屑中隐藏
-//       hideInBreadcrumb: true,
-//       // 子项往上提，仍旧展示,
-//       flatMenu: true,
-//     },
-//   ];
+export const routesMap = {
+  sysOpe: [
+    {
+      path: '/',
+      redirect: '/sysOpe/payment/paymentList',
+    },
+    {
+      path: '/sysOpe',
+      routes: [
+        {
+          name: '決済一覧',
+          path: '/sysOpe/payment/paymentList',
+          component: './systemOperationPC/payment/paymentList',
+        },
+        {
+          name: '決済登録',
+          path: '/sysOpe/payment/paymentRegister',
+          component: './systemOperationPC/payment/paymentRegister',
+        },
+        {
+          name: '決済履歴管理',
+          path: '/sysOpe/deposit',
+          component: './systemOperationPC/deposit/deposit',
+        },
+        {
+          name: 'お知らせ一覧',
+          path: '/sysOpe/notice/noticeList',
+          component: './systemOperationPC/notice/noticeList',
+        },
+        {
+          name: 'お知らせ登録',
+          path: '/sysOpe/notice/noticeRegister',
+          component: './systemOperationPC/notice/noticeRegister',
+        },
+      ],
+    },
+  ],
+  storeMobile: [
+    {
+      path: '/',
+      redirect: '/storeMobile/login',
+    },
+    {
+      path: '/storeMobile',
+      layout: false,
+      routes: [
+        {
+          name: 'login',
+          path: '/storeMobile/login',
+          component: './storeMobile/login',
+        },
+        {
+          name: 'list',
+          path: '/storeMobile/list',
+          component: './storeMobile/list',
+        },
+      ],
+    },
+  ],
+};
+export const routes = [
+  {
+    path: '/',
+    redirect: '/sysOpe/paymentList',
+  },
+  {
+    path: '/sysOpe',
+    routes: [
+      {
+        name: '決済一覧',
+        path: '/sysOpe/paymentList',
+        component: './systemOperationPC/payment',
+      },
+    ],
+  },
+  {
+    path: '/storeMobile',
+    layout: false,
+    routes: [
+      {
+        name: 'login',
+        path: '/storeMobile/login',
+        component: './storeMobile/login',
+      },
+      {
+        name: 'list',
+        path: '/storeMobile/list',
+        component: './storeMobile/list',
+      },
+    ],
+  },
+];
