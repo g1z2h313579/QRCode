@@ -1,4 +1,5 @@
 // import Icon from '@ant-design/icons';
+import { px2remTransformer, StyleProvider } from '@ant-design/cssinjs';
 import type { MenuProps } from 'antd';
 import { ConfigProvider, Menu } from 'antd';
 import ja_JP from 'antd/locale/ja_JP';
@@ -17,7 +18,9 @@ interface HeaderProps {
   [props: string]: any;
 }
 // type MenuItem = Required<MenuProps>['items'][number];
-
+const px2rem = px2remTransformer({
+  rootValue: 14, // 32px = 1rem; @default 16
+});
 const Header: FunctionComponent<HeaderProps> = (props) => {
   const [current, setCurrent] = useState<string>();
   const [keyPath, setKeyPath] = useState<string[]>(['paymentList', 'payment']);
@@ -194,7 +197,9 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
         </div>
         <div className={style.brand}>{brand}</div>
       </div>
-      <ConfigProvider locale={ja_JP}>{props.children}</ConfigProvider>
+      <ConfigProvider locale={ja_JP}>
+        <StyleProvider transformers={[px2rem]}>{props.children}</StyleProvider>
+      </ConfigProvider>
     </div>
   );
 };
