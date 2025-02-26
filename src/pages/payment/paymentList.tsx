@@ -1,108 +1,129 @@
-import { Button, Col, DatePicker, DatePickerProps, Input, Radio, Row, Table } from 'antd';
+import { Button, Col, DatePicker, Input, Radio, Row, Table } from 'antd';
+import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
-import "./payment.less"
 import { FunctionComponent, useState } from 'react';
-import { ColumnsType } from 'antd/es/table';
-interface PaymentListProps {}
+import './payment.less';
+interface PaymentListProps {
+  [props: string]: any;
+}
 
 const PaymentList: FunctionComponent<PaymentListProps> = () => {
   const [paymentDiff, setPaymentDiff] = useState<number>(1);
   const [status, setStatus] = useState<number>(1);
-  const [paymentDate, setPaymentDate] = useState<string>('');
+  const [paymentDate, setPaymentDate] = useState<
+    [dayjs.Dayjs, string | string[]]
+  >([dayjs(), '']);
   const [store, setStore] = useState<string>('');
   const [productId, setProductId] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
-  const [loginDateFrom, setLoginDateFrom] = useState<string>('');
-  const [loginDateTo, setLoginDateTo] = useState<string>('');
-  const [updateFrom, setUpdateFrom] = useState<string>('');
-  const [updateTo, setUpdateTo] = useState<string>('');
-  const [deleteFrom, setDeleteFrom] = useState<string>('');
-  const [deleteTo, setDeleteTo] = useState<string>('');
+  const [loginDateFrom, setLoginDateFrom] = useState<
+    [dayjs.Dayjs, string | string[]]
+  >([dayjs(), '']);
+  const [loginDateTo, setLoginDateTo] = useState<
+    [dayjs.Dayjs, string | string[]]
+  >([dayjs(), '']);
+  const [updateFrom, setUpdateFrom] = useState<
+    [dayjs.Dayjs, string | string[]]
+  >([dayjs(), '']);
+  const [updateTo, setUpdateTo] = useState<[dayjs.Dayjs, string | string[]]>([
+    dayjs(),
+    '',
+  ]);
+  const [deleteFrom, setDeleteFrom] = useState<
+    [dayjs.Dayjs, string | string[]]
+  >([dayjs(), '']);
+  const [deleteTo, setDeleteTo] = useState<[dayjs.Dayjs, string | string[]]>([
+    dayjs(),
+    '',
+  ]);
   const inputText = (text: string) => {
     return <span className="inputText">{text}</span>;
   };
-  console.log("paymentDate", paymentDate)
-  const dateOnchange = (dateType:string, ...props:[dayjs.Dayjs, string | string[]]) => {
-    const [date, dateString] = props
-    console.log(date, dateString);
-    eval(`set${dateType}`)(dateString)
+
+  const dateOnchange = (
+    dateDispatch: React.Dispatch<
+      React.SetStateAction<[dayjs.Dayjs, string | string[]]>
+    >,
+    ...props: [dayjs.Dayjs, string | string[]]
+  ) => {
+    dateDispatch(props);
   };
-  const columns:ColumnsType<any> = [
+  const columns: ColumnsType<any> = [
     {
-      dataIndex: "paymentId",
-      title: "決済ID",
+      dataIndex: 'paymentId',
+      title: '決済ID',
     },
     {
-      dataIndex: "paymentDiff",
-      title: "決済区分",
+      dataIndex: 'paymentDiff',
+      title: '決済区分',
     },
     {
-      dataIndex: "paymentDate",
-      title: "決済日時",
+      dataIndex: 'paymentDate',
+      title: '決済日時',
     },
     {
-      dataIndex: "store",
-      title: "店舗",
+      dataIndex: 'store',
+      title: '店舗',
     },
     {
-      dataIndex: "productId",
-      title: "商品ID",
+      dataIndex: 'productId',
+      title: '商品ID',
     },
     {
-      dataIndex: "userId",
-      title: "利用者ID",
+      dataIndex: 'userId',
+      title: '利用者ID',
     },
     {
-      dataIndex: "amount",
-      title: "金額",
+      dataIndex: 'amount',
+      title: '金額',
     },
     {
-      dataIndex: "status",
-      title: "ステータス",
+      dataIndex: 'status',
+      title: 'ステータス',
     },
     {
-      dataIndex: "loginDate",
-      title: "登録日",
+      dataIndex: 'loginDate',
+      title: '登録日',
     },
     {
-      dataIndex: "updateDate",
-      title: "更新日",
+      dataIndex: 'updateDate',
+      title: '更新日',
     },
     {
-      dataIndex: "deleteDate",
-      title: "削除日",
+      dataIndex: 'deleteDate',
+      title: '削除日',
     },
-  ]
+  ];
   const dataSource = [
     {
-      paymentId: "1",
-      paymentDiff: "個人",
-      paymentDate: "2021-09-01",
-      store: "store1",
-      productId: "1",
-      userId: "1",
-      amount: "1000",
-      status: "有効",
-      loginDate: "2021-09-01",
-      updateDate: "2021-09-01",
-      deleteDate: "2021-09-01",
+      paymentId: '1',
+      paymentDiff: '個人',
+      paymentDate: '2021-09-01',
+      store: 'store1',
+      productId: '1',
+      userId: '1',
+      amount: '1000',
+      status: '有効',
+      loginDate: '2021-09-01',
+      updateDate: '2021-09-01',
+      deleteDate: '2021-09-01',
     },
     {
-      paymentId: "2",
-      paymentDiff: "法人",
-      paymentDate: "2021-09-01",
-      store: "store2",
-      productId: "2",
-      userId: "2",
-      amount: "2000",
-      status: "無効",
-      loginDate: "2021-09-01",
-      updateDate: "2021-09-01",
-      deleteDate: "2021-09-01",
-    }
-  ]
+      paymentId: '2',
+      paymentDiff: '法人',
+      paymentDate: '2021-09-01',
+      store: 'store2',
+      productId: '2',
+      userId: '2',
+      amount: '2000',
+      status: '無効',
+      loginDate: '2021-09-01',
+      updateDate: '2021-09-01',
+      deleteDate: '2021-09-01',
+    },
+  ];
 
   return (
     <div className="payment-list">
@@ -130,7 +151,12 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
           <Col span={6}>
             <div className="searchLimitItem">
               {inputText('決済日時')}
-              <DatePicker onChange={(...props) => {dateOnchange("PaymentDate", ...props)}}  />
+              <DatePicker
+                value={paymentDate[0]}
+                onChange={(...props) => {
+                  dateOnchange(setPaymentDate, ...props);
+                }}
+              />
             </div>
           </Col>
           <Col span={6}>
@@ -143,20 +169,29 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
         <Row>
           <Col span={6}>
             <div className="searchLimitItem">
-            {inputText('商品ID')}
-              <Input value={productId} onChange={(e) => setProductId(e.target.value)} />
+              {inputText('商品ID')}
+              <Input
+                value={productId}
+                onChange={(e) => setProductId(e.target.value)}
+              />
             </div>
           </Col>
           <Col span={6}>
             <div className="searchLimitItem">
-            {inputText('利用者ID')}
-              <Input value={userId} onChange={(e) => setUserId(e.target.value)}/>
+              {inputText('利用者ID')}
+              <Input
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+              />
             </div>
           </Col>
           <Col span={6}>
             <div className="searchLimitItem">
-            {inputText('金額')}
-              <Input value={amount} onChange={(e) => setAmount(e.target.value)} />
+              {inputText('金額')}
+              <Input
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
             </div>
           </Col>
           <Col span={6}>
@@ -177,36 +212,74 @@ const PaymentList: FunctionComponent<PaymentListProps> = () => {
           <Col span={8}>
             <div className="searchLimitItem">
               {inputText('登録日')}
-              <DatePicker  onChange={(...props) => {dateOnchange("loginDateFrom", ...props)}}  />
+              <DatePicker
+                value={loginDateFrom[0]}
+                onChange={(...props) => {
+                  dateOnchange(setLoginDateFrom, ...props);
+                }}
+              />
               ～
-              <DatePicker  onChange={(...props) => {dateOnchange("loginDateTo", ...props)}}  />
+              <DatePicker
+                value={loginDateTo[0]}
+                onChange={(...props) => {
+                  dateOnchange(setLoginDateTo, ...props);
+                }}
+              />
             </div>
           </Col>
           <Col span={8}>
             <div className="searchLimitItem">
               {inputText('更新日')}
-              <DatePicker  onChange={(...props) => {dateOnchange("updateFrom", ...props)}}  />
+              <DatePicker
+                value={updateFrom[0]}
+                onChange={(...props) => {
+                  dateOnchange(setUpdateFrom, ...props);
+                }}
+              />
               ～
-              <DatePicker  onChange={(...props) => {dateOnchange("updateTo", ...props)}}  />
+              <DatePicker
+                value={updateTo[0]}
+                onChange={(...props) => {
+                  dateOnchange(setUpdateTo, ...props);
+                }}
+              />
             </div>
           </Col>
           <Col span={8}>
             <div className="searchLimitItem">
               {inputText('削除日')}
-              <DatePicker  onChange={(...props) => {dateOnchange("deleteFrom", ...props)}}  />
+              <DatePicker
+                value={deleteFrom[0]}
+                onChange={(...props) => {
+                  dateOnchange(setDeleteFrom, ...props);
+                }}
+              />
               ～
-              <DatePicker  onChange={(...props) => {dateOnchange("deleteTo", ...props)}}  />
+              <DatePicker
+                value={deleteTo[0]}
+                onChange={(...props) => {
+                  dateOnchange(setDeleteTo, ...props);
+                }}
+              />
             </div>
           </Col>
         </Row>
       </div>
-      <div className='button'>
-        <div className='buttonLeft'>
-          <Button type={"primary"} className='cuzPrimary' style={{marginRight: "10px"}}>検索</Button>
-          <Button type='default'>条件クリア</Button>
+      <div className="button">
+        <div className="buttonLeft">
+          <Button
+            type={'primary'}
+            className="cuzPrimary"
+            style={{ marginRight: '10px' }}
+          >
+            検索
+          </Button>
+          <Button type="default">条件クリア</Button>
         </div>
-        <div className='buttonRight'>
-          <Button type={"primary"} className='cuzPrimary'>CSV出力</Button>
+        <div className="buttonRight">
+          <Button type={'primary'} className="cuzPrimary">
+            CSV出力
+          </Button>
         </div>
       </div>
       <Table columns={columns} dataSource={dataSource} />

@@ -3,20 +3,20 @@ import type { MenuProps } from 'antd';
 import { ConfigProvider, Menu } from 'antd';
 import ja_JP from 'antd/locale/ja_JP';
 import { FunctionComponent, useMemo, useState } from 'react';
-import dashboard from "../../assets/img/dashboard.png"
-import income from "../../assets/img/income.png"
-import notice from "../../assets/img/notice.png"
-import payment from "../../assets/img/payment.png"
-import paymentAct from "../../assets/img/payment-active.png"
-import product from "../../assets/img/product.png"
-import qa from "../../assets/img/qa.png"
-import setting from "../../assets/img/setting.png"
+import dashboard from '../../assets/img/dashboard.png';
+import income from '../../assets/img/income.png';
+import notice from '../../assets/img/notice.png';
+import paymentAct from '../../assets/img/payment-active.png';
+import payment from '../../assets/img/payment.png';
+import product from '../../assets/img/product.png';
+import qa from '../../assets/img/qa.png';
+import setting from '../../assets/img/setting.png';
 // for date-picker i18n
 import style from './layout.less';
 interface HeaderProps {
   [props: string]: any;
 }
-type MenuItem = Required<MenuProps>['items'][number];
+// type MenuItem = Required<MenuProps>['items'][number];
 
 const Header: FunctionComponent<HeaderProps> = (props) => {
   const [current, setCurrent] = useState<string>();
@@ -27,7 +27,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
     setCurrent(e.key);
     setKeyPath(e.keyPath);
   };
-  const imgStyle = {verticalAlign: "middle", marginBottom: "4px"}
+  const imgStyle = { verticalAlign: 'middle', marginBottom: '4px' };
   const items: any = useMemo(() => {
     return [
       {
@@ -57,7 +57,12 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
       {
         label: '決済管理',
         key: 'payment',
-        icon: <img src={current === 'paymentList' ? paymentAct : payment} style={imgStyle} />,
+        icon: (
+          <img
+            src={current === 'paymentList' ? paymentAct : payment}
+            style={imgStyle}
+          />
+        ),
         dashed: false,
         children: [
           {
@@ -126,7 +131,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
         icon: <img src={setting} style={imgStyle} />,
         key: 'setting',
       },
-    ]
+    ];
   }, [current]);
   const brand = useMemo(() => {
     let str = '';
@@ -172,8 +177,8 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
                   activeBarBorderWidth: 0,
                   activeBarHeight: 0,
                   iconMarginInlineEnd: 2,
-                  horizontalItemSelectedBg: "#07359E",
-                  subMenuItemSelectedColor: "#fff",
+                  horizontalItemSelectedBg: '#07359E',
+                  subMenuItemSelectedColor: '#fff',
                   // itemSelectedColor: "#fff"
                 },
               },

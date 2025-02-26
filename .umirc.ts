@@ -15,11 +15,10 @@ export default defineConfig({
       redirect: '/paymentList',
     },
     {
-      name: "決済一覧",
+      name: '決済一覧',
       path: '/paymentList',
       component: './payment/paymentList',
     },
   ],
   npmClient: 'npm',
 });
-
