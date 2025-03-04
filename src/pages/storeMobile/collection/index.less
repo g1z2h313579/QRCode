@@ -1,0 +1,97 @@
+.collectionListContainer {
+  padding: 2rem 1rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .search {
+    margin-bottom: 10px;
+
+    .detailSearch {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none; // 适用于 Chrome、Safari
+      }
+
+      -ms-overflow-style: none; // 适用于 IE 和 Edge
+      scrollbar-width: none; // 适用于 Firefox
+      .detailSearchItem {
+        border: 1px solid #dcdcdc;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin-right: 10px;
+        text-wrap: nowrap;
+      }
+    }
+  }
+
+  .collectionList {
+    overflow-y: auto;
+    height: calc(100vh - 200px);
+
+    &::-webkit-scrollbar {
+      display: none; // 适用于 Chrome、Safari
+    }
+
+    -ms-overflow-style: none; // 适用于 IE 和 Edge
+    scrollbar-width: none; // 适用于 Firefox
+    .collectionItem {
+      display: flex;
+
+      .img {
+        img {
+          width: 100px;
+        }
+      }
+
+      .content {
+        padding: 12px 12px 6px 0;
+        flex-grow: 1;
+
+        .title {
+          font-size: 12px;
+          margin-bottom: 4px;
+        }
+
+        .price {
+          font-weight: bold;
+          margin-bottom: 2px;
+        }
+
+        .details {
+          font-size: 10px;
+          color: #999;
+        }
+      }
+
+      .bag {
+        display: flex;
+        flex-direction: column-reverse;
+        padding-bottom: 20px;
+      }
+    }
+  }
+
+  .setCart {
+    position: fixed;
+    cursor: pointer;
+    box-shadow: 0 0 4px 2px rgba(0, 0, 0, 50%);
+    bottom: 60px;
+    right: 20px;
+    left: 20px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+}

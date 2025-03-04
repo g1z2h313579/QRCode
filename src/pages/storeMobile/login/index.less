@@ -1,3 +1,5 @@
+@import '../../../global.less';
+
 .login {
   display: flex;
   justify-content: center;
@@ -6,6 +8,18 @@
   height: 100vh;
 
   .loginBox {
+    padding: 20px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 12px;
+    }
+
     .logo {
       font-size: 3rem;
       font-weight: bold;
@@ -18,6 +32,15 @@
 
     form {
       width: 80vw;
+    }
+
+    .forgetPwd {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+
+      .changePwd {
+        border-bottom: 1px solid @primaryCuzColor;
+      }
     }
   }
 }

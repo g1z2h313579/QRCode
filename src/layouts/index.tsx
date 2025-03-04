@@ -1,12 +1,10 @@
 // import Icon from '@ant-design/icons';
-import { px2remTransformer, StyleProvider } from '@ant-design/cssinjs';
 import type { MenuProps } from 'antd';
 import { ConfigProvider, Menu } from 'antd';
 import ja_JP from 'antd/locale/ja_JP';
 import { FunctionComponent, useMemo, useState } from 'react';
-
 // for date-picker i18n
-import { ENV_MOBILE, FONTREM } from '@/constants';
+import { ENV_MOBILE, useEnvCode } from '@/constants';
 import { history, Outlet } from '@umijs/max';
 import style from './layout.less';
 import { useMenu } from './useHook';
@@ -18,10 +16,8 @@ const Header: FunctionComponent<HeaderProps> = () => {
   const [current, setCurrent] = useState<string>('paymentList');
   const [keyPath, setKeyPath] = useState<string[]>(['paymentList', 'payment']);
   const menu = useMenu(current);
-  const envCode = useMemo(() => window.envCode as keyof typeof FONTREM, []);
-  const px2rem = px2remTransformer({
-    rootValue: FONTREM[envCode], // 32px = 1rem; @default 16
-  });
+  const envCode = useEnvCode();
+
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
     setKeyPath(e.keyPath);
@@ -59,9 +55,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
   if (envCode === ENV_MOBILE) {
     return (
       <ConfigProvider locale={ja_JP}>
-        <StyleProvider transformers={[px2rem]}>
-          <Outlet />
-        </StyleProvider>
+        <Outlet />
       </ConfigProvider>
     );
   }
@@ -101,11 +95,10 @@ const Header: FunctionComponent<HeaderProps> = () => {
         </div>
         <div className={style.brand}>{brand}</div>
       </div>
-      <StyleProvider transformers={[px2rem]}>
-        <ConfigProvider locale={ja_JP}>
-          <Outlet />
-        </ConfigProvider>
-      </StyleProvider>
+
+      <ConfigProvider locale={ja_JP}>
+        <Outlet />
+      </ConfigProvider>
     </div>
   );
 };

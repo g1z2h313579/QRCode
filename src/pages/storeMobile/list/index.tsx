@@ -1,10 +1,26 @@
+import { useBaseUrl } from '@/constants';
+import { useLocation } from '@umijs/max';
 import { FunctionComponent } from 'react';
-interface ListProps {
+import Collection from '../collection';
+import ListLayout from '../component/ListLayout';
+import Home from '../home';
+interface ListIndexProps {
   [props: string]: any;
 }
 
-const List: FunctionComponent<ListProps> = () => {
-  return <div>List</div>;
+const ListIndex: FunctionComponent<ListIndexProps> = () => {
+  const location = useLocation();
+  const baseUrl = useBaseUrl();
+  const { pathname } = location;
+  const pathMap: { [key: string]: JSX.Element } = {
+    [`${baseUrl}/home`]: <Home />,
+    [`${baseUrl}/collection`]: <Collection />,
+  };
+  return (
+    <ListLayout initKey={pathname.replace(`${baseUrl}/`, '')}>
+      {pathMap[pathname]}
+    </ListLayout>
+  );
 };
 
-export default List;
+export default ListIndex;

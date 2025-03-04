@@ -1,20 +1,20 @@
 import { useBaseUrl } from '@/constants';
-import { Link } from '@umijs/max';
 import { Button, ConfigProvider, Form, FormProps, Input } from 'antd';
 import { FunctionComponent } from 'react';
+import { history } from 'umi';
 import style from './index.less';
-interface LoginProps {
+interface ForgetPwdMailProps {
   [props: string]: any;
 }
 type FieldType = {
-  username?: string;
-  password?: string;
+  email: string;
 };
 
-const Login: FunctionComponent<LoginProps> = () => {
+const ForgetPwdMail: FunctionComponent<ForgetPwdMailProps> = () => {
   const baseUrl = useBaseUrl();
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
+    history.push(`${baseUrl}/forgetPwdMailAccess`);
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
@@ -22,7 +22,6 @@ const Login: FunctionComponent<LoginProps> = () => {
   ) => {
     console.log('Failed:', errorInfo);
   };
-
   return (
     <div className={style.login}>
       <div className={style.loginBox}>
@@ -37,44 +36,22 @@ const Login: FunctionComponent<LoginProps> = () => {
           }}
         >
           <Form
-            name="login"
+            name="forgetPwdMail"
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
           >
             <Form.Item<FieldType>
-              name="username"
+              name="email"
               rules={[
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input placeholder="ログインID" />
+              <Input placeholder="メーリアドレスを入力してください" />
             </Form.Item>
-
-            <Form.Item<FieldType>
-              name="password"
-              rules={[
-                { required: true, message: 'Please input your password!' },
-              ]}
-            >
-              <Input.Password placeholder="パスワード" />
-              <div className={`cuzPrimaryColor ${style.forgetPwd}`}>
-                パスワードを忘れた方は
-                <Link
-                  to={`${baseUrl}/forgetPwdMail`}
-                  className={style.changePwd}
-                >
-                  こちら
-                </Link>
-              </div>
-            </Form.Item>
-
-            {/* <Form.Item<FieldType> name="remember" valuePropName="checked" label={null}>
-      <Checkbox>Remember me</Checkbox>
-    </Form.Item> */}
 
             <Form.Item style={{ textAlign: 'center' }}>
               <Button className="cuzPrimary" htmlType="submit">
-                ログイン
+                送信
               </Button>
             </Form.Item>
           </Form>
@@ -84,4 +61,4 @@ const Login: FunctionComponent<LoginProps> = () => {
   );
 };
 
-export default Login;
+export default ForgetPwdMail;
