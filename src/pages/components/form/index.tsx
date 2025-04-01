@@ -20,13 +20,13 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
   const { form, colProps, formItems } = props;
   const childrenTypeMap = (
     tyepname: string,
-    props: any,
+    // props: any,
   ): Record<'input' | 'radio', JSX.Element> => {
     const childrenMap = {
       input: <Input />,
       radio: <Radio.Group />,
     };
-    childrenMap[tyepname].props = props;
+    // childrenMap[tyepname].props = props;
     return childrenMap[tyepname];
   };
   return (
