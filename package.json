@@ -3,18 +3,18 @@
   "author": "zhihan.guan@issoh.co.jp <zhihan.guan@issoh.co.jp>",
   "scripts": {
     "build": "max build",
-    "build:mobile": "UMI_APP=storeMobile max build",
-    "build:stoTra": "UMI_APP=stoTra max build",
-    "build:sysOpe": "UMI_APP=sysOpe max build",
+    "build:mobile": "cross-env UMI_APP=storeMobile max build",
+    "build:stoTra": "cross-env UMI_APP=stoTra max build",
+    "build:sysOpe": "cross-env UMI_APP=sysOpe max build",
     "dev": "max dev",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "prepare": "husky",
     "setup": "max setup",
     "start": "npm run dev",
-    "start:mobile": "UMI_APP=storeMobile max dev",
-    "start:stoTra": "UMI_APP=stoTra max dev",
-    "start:sysOpe": "UMI_APP=sysOpe max dev"
+    "start:mobile": "cross-env UMI_APP=storeMobile max dev",
+    "start:stoTra": "cross-env UMI_APP=stoTra max dev",
+    "start:sysOpe": "cross-env UMI_APP=sysOpe max dev"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",

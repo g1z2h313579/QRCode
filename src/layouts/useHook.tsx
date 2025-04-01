@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import dashboard from '../assets/img/dashboard.png';
-import income from '../assets/img/income.png';
 import notice from '../assets/img/notice.png';
 import paymentAct from '../assets/img/payment-active.png';
 import payment from '../assets/img/payment.png';
@@ -15,11 +14,25 @@ export const useMenu = (pathname: string) => {
       {
         label: 'ダッシュボード',
         key: 'dashboard',
-        // dashed: false,
         icon: <img src={dashboard} style={imgStyle} />,
       },
       {
-        label: '決済管理',
+        label: '加盟店管理',
+        key: 'merchant',
+        icon: <img src={dashboard} style={imgStyle} />,
+        children: [
+          {
+            label: '加盟店一覧',
+            key: 'merchantList',
+          },
+          {
+            label: '加盟店登録',
+            key: 'merchantRegister',
+          },
+        ],
+      },
+      {
+        label: '決済履歴管理',
         key: 'payment',
         icon: (
           <img
@@ -27,23 +40,6 @@ export const useMenu = (pathname: string) => {
             style={imgStyle}
           />
         ),
-        // dashed: false,
-        children: [
-          {
-            label: '決済一覧',
-            key: 'paymentList',
-          },
-          {
-            label: '決済登録',
-            key: 'paymentRegister',
-          },
-        ],
-      },
-      {
-        label: '決済履歴管理',
-        icon: <img src={income} style={imgStyle} />,
-        key: 'deposit',
-        // children: [],
       },
       {
         label: 'お知らせ管理',
@@ -64,6 +60,12 @@ export const useMenu = (pathname: string) => {
         label: '問合わせ管理',
         icon: <img src={qa} style={imgStyle} />,
         key: 'contact',
+        children: [
+          {
+            label: '問合わせ一覧',
+            key: 'contactList',
+          },
+        ],
       },
       {
         label: '帳票管理',

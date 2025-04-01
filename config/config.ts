@@ -8,7 +8,9 @@ export default defineConfig({
   access: {},
   model: {},
   initialState: {},
-  request: {},
+  request: {
+    dataField: 'data', //直接消费接口中，data字段的数据
+  },
   layout: {
     // title: '@umijs/max',
   },

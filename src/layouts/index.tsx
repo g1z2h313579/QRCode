@@ -2,21 +2,31 @@
 import type { MenuProps } from 'antd';
 import { ConfigProvider, Menu } from 'antd';
 import ja_JP from 'antd/locale/ja_JP';
-import { FunctionComponent, useMemo, useState } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 // for date-picker i18n
 import { ENV_MOBILE, useEnvCode } from '@/constants';
 import { history, Outlet } from '@umijs/max';
+import { useRoutesMap } from '../../config/route';
 import style from './layout.less';
 import { useMenu } from './useHook';
+
 interface HeaderProps {
   [props: string]: any;
 }
 
 const Header: FunctionComponent<HeaderProps> = () => {
-  const [current, setCurrent] = useState<string>('paymentList');
-  const [keyPath, setKeyPath] = useState<string[]>(['paymentList', 'payment']);
-  const menu = useMenu(current);
+  const [current, setCurrent] = useState<string>('');
+  const [keyPath, setKeyPath] = useState<string[]>(['', '']);
+  const [hidelayout, setHideLayout] = useState(false);
+  const routes = useRoutesMap();
   const envCode = useEnvCode();
+  useEffect(() => {
+    const path = history.location.pathname.split('/');
+    const currentPath = path[path.length - 1];
+    setCurrent(currentPath);
+    setKeyPath([envCode, ...path.slice(2)]);
+  }, []);
+  const menu = useMenu(current);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
@@ -52,7 +62,25 @@ const Header: FunctionComponent<HeaderProps> = () => {
     return str;
   }, [current]);
 
-  if (envCode === ENV_MOBILE) {
+  useEffect(() => {
+    const currentRoute = routes[envCode].reduce<any>((pre, item) => {
+      if (item.path === history.location.pathname) {
+        return item;
+      } else if (item.routes && item.routes.length > 0) {
+        const found = item.routes.find(
+          (i) => i.path === history.location.pathname,
+        );
+        return found || pre;
+      } else {
+        return pre;
+      }
+    }, {});
+    if (currentRoute.hideLayout) {
+      setHideLayout(true);
+    }
+  }, [current]);
+
+  if (envCode === ENV_MOBILE || hidelayout) {
     return (
       <ConfigProvider locale={ja_JP}>
         <Outlet />
