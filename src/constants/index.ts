@@ -4,7 +4,7 @@ export const ENV_MOBILE = 'storeMobile';
 // 運営者管理
 export const ENV_SYSTEMOPERATION = 'sysOpe';
 // 加盟者管理
-export const ENV_FRANCHISEE = 'stoTra';
+export const ENV_FRANCHISEE = 'merchant';
 
 export const FONTREM = {
   [ENV_MOBILE]: 12,
@@ -14,7 +14,7 @@ export const FONTREM = {
 export const BASEURL = {
   [ENV_MOBILE]: '/storeMobile',
   [ENV_SYSTEMOPERATION]: '/sysOpe',
-  [ENV_FRANCHISEE]: '/stoTra',
+  [ENV_FRANCHISEE]: '/merchant',
 };
 export const useEnvCode = () => {
   const envCode = useMemo<keyof typeof BASEURL>(

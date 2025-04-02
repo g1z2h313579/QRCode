@@ -7,7 +7,7 @@ npm run start:sysOpe
 
 ```
 // 店铺交易管理
-npm run start:stoTra
+npm run start:merchant
 ```
 
 ```
@@ -24,7 +24,7 @@ npm run build:sysOpe
 
 ```
 // 店铺交易管理
-npm run build:stoTra
+npm run build:merchant
 ```
 
 ```

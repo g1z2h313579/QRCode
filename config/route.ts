@@ -43,7 +43,7 @@ const getRoutes = (baseUrl: string) => {
         component: './systemOperationPC/login/forgetPwdMailReset',
       },
       {
-        name: 'merchant',
+        name: '加盟店管理',
         path: `${baseUrl}/merchant`,
         routes: [
           {
@@ -144,35 +144,55 @@ const getRoutes = (baseUrl: string) => {
     [ENV_FRANCHISEE]: [
       {
         path: '/',
-        redirect: `${baseUrl}/payment/paymentList`,
+        redirect: `${baseUrl}/dashboard`,
       },
       {
-        path: `${baseUrl}`,
+        name: 'ダッシュボード',
+        path: `${baseUrl}/dashboard`,
+        component: './merchant/dashboard',
+      },
+      {
+        name: 'login',
+        path: `${baseUrl}/login`,
+        hideLayout: true,
+        component: './merchant/login',
+      },
+      {
+        name: 'forgetPwdMail',
+        path: `${baseUrl}/forgetPwdMail`,
+        hideLayout: true,
+        component: './merchant/login/forgetPwdMail',
+      },
+      {
+        name: 'forgetPwdMailAccess',
+        path: `${baseUrl}/forgetPwdMailAccess`,
+        hideLayout: true,
+        component: './merchant/login/forgetPwdMailAccess',
+      },
+      {
+        name: 'forgetPwdMailReset',
+        path: `${baseUrl}/forgetPwdMailReset`,
+        hideLayout: true,
+        component: './merchant/login/forgetPwdMailReset',
+      },
+      {
+        name: '商品管理',
+        path: `${baseUrl}/product`,
         routes: [
           {
-            name: '決済一覧',
-            path: `${baseUrl}/payment/paymentList`,
-            component: './systemOperationPC/payment/paymentList',
+            name: '商品一覧',
+            path: `${baseUrl}/product/productList`,
+            component: './merchant/product',
           },
           {
-            name: '決済登録',
-            path: `${baseUrl}/payment/paymentRegister`,
-            component: './systemOperationPC/payment/paymentRegister',
+            name: '商品登録',
+            path: `${baseUrl}/product/productRegister`,
+            component: './merchant/product/merchantDetail',
           },
           {
-            name: '決済履歴管理',
-            path: `${baseUrl}/deposit`,
-            component: './systemOperationPC/deposit/deposit',
-          },
-          {
-            name: 'お知らせ一覧',
-            path: `${baseUrl}/notice/noticeList`,
-            component: './systemOperationPC/notice/noticeList',
-          },
-          {
-            name: 'お知らせ登録',
-            path: `${baseUrl}/notice/noticeRegister`,
-            component: './systemOperationPC/notice/noticeRegister',
+            name: '商品詳細',
+            path: `${baseUrl}/product/:productId`,
+            component: './merchant/product/merchantDetail',
           },
         ],
       },

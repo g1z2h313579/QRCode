@@ -3,8 +3,8 @@
   "author": "zhihan.guan@issoh.co.jp <zhihan.guan@issoh.co.jp>",
   "scripts": {
     "build": "max build",
+    "build:merchant": "cross-env UMI_APP=merchant max build",
     "build:mobile": "cross-env UMI_APP=storeMobile max build",
-    "build:stoTra": "cross-env UMI_APP=stoTra max build",
     "build:sysOpe": "cross-env UMI_APP=sysOpe max build",
     "dev": "max dev",
     "format": "prettier --cache --write .",
@@ -12,8 +12,8 @@
     "prepare": "husky",
     "setup": "max setup",
     "start": "npm run dev",
+    "start:merchant": "cross-env UMI_APP=merchant max dev",
     "start:mobile": "cross-env UMI_APP=storeMobile max dev",
-    "start:stoTra": "cross-env UMI_APP=stoTra max dev",
     "start:sysOpe": "cross-env UMI_APP=sysOpe max dev"
   },
   "dependencies": {
