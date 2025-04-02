@@ -1,43 +1,95 @@
-//@ts-nocheck
-import { Col, ColProps, Form, FormInstance, Input, Radio, Row } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import {
+  Button,
+  Col,
+  ColProps,
+  ConfigProvider,
+  DatePicker,
+  Form,
+  FormInstance,
+  Input,
+  Radio,
+  Row,
+  Select,
+  Upload,
+} from 'antd';
 import { FunctionComponent } from 'react';
+import style from './index.less';
 export interface CustomizeFormProps {
   form?: FormInstance<any>;
   colProps: ColProps;
   formItems: formItems[];
+  disabled?: boolean;
 }
 interface formItems {
-  formItemProps: typeof Form.Item & {
+  formItemProps: {
     name: string;
     label: string;
-    rules: any[];
+    rules?: any[];
+    disabled?: boolean;
   };
-  childrenType: 'input' | 'radio';
-  childrenProps: any;
+  childrenType:
+    | 'input'
+    | 'radio'
+    | 'select'
+    | 'dateRange'
+    | 'datePicker'
+    | 'attachment';
+  childrenProps?: any;
 }
-
+const { RangePicker } = DatePicker;
 const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
-  const { form, colProps, formItems } = props;
+  const { form, colProps, formItems, disabled = false } = props;
   const childrenTypeMap = (
-    tyepname: string,
-    // props: any,
-  ): Record<'input' | 'radio', JSX.Element> => {
+    typename:
+      | 'input'
+      | 'radio'
+      | 'select'
+      | 'dateRange'
+      | 'datePicker'
+      | 'attachment',
+    props: any = {},
+  ): JSX.Element => {
     const childrenMap = {
-      input: <Input />,
-      radio: <Radio.Group />,
+      input: <Input {...props} />,
+      radio: <Radio.Group {...props} />,
+      select: <Select {...props} />,
+      dateRange: <RangePicker {...props} />,
+      datePicker: <DatePicker {...props} />,
+      attachment: (
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Upload</Button>
+        </Upload>
+      ),
     };
-    // childrenMap[tyepname].props = props;
-    return childrenMap[tyepname];
+    return childrenMap[typename];
   };
   return (
     <Row>
-      <Form form={form} layout="inline">
+      <Form
+        form={form}
+        layout="inline"
+        className={`${style.formContainer} formContainer`}
+        disabled={disabled}
+      >
         {formItems.map((item, index) => {
           return (
             <Col {...colProps} key={index}>
-              <Form.Item {...item.formItemProps}>
-                {childrenTypeMap(item.childrenType, item.childrenProps)}
-              </Form.Item>
+              <ConfigProvider
+                theme={{
+                  components: {
+                    Form: {
+                      labelHeight: 50,
+                    },
+                  },
+                }}
+              >
+                <Form.Item {...item.formItemProps}>
+                  <div className={style.childrenWarp}>
+                    {childrenTypeMap(item.childrenType, item.childrenProps)}
+                  </div>
+                </Form.Item>
+              </ConfigProvider>
             </Col>
           );
         })}

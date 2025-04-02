@@ -14,7 +14,7 @@ interface HeaderProps {
   [props: string]: any;
 }
 
-const Header: FunctionComponent<HeaderProps> = () => {
+const Header: FunctionComponent<HeaderProps> = (props) => {
   const [current, setCurrent] = useState<string>('');
   const [keyPath, setKeyPath] = useState<string[]>(['', '']);
   const [hidelayout, setHideLayout] = useState(false);
@@ -23,8 +23,15 @@ const Header: FunctionComponent<HeaderProps> = () => {
   useEffect(() => {
     const path = history.location.pathname.split('/');
     const currentPath = path[path.length - 1];
-    setCurrent(currentPath);
-    setKeyPath([envCode, ...path.slice(2)]);
+    // 判断是否是纯数字
+    const isNumber = /^\d+$/.test(currentPath);
+    if (isNumber) {
+      setCurrent(path[path.length - 2]);
+      setKeyPath([...path.slice(1).reverse()]);
+    } else {
+      setCurrent(currentPath);
+      setKeyPath([...path.slice(2).reverse()]);
+    }
   }, []);
   const menu = useMenu(current);
 
@@ -83,7 +90,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
   if (envCode === ENV_MOBILE || hidelayout) {
     return (
       <ConfigProvider locale={ja_JP}>
-        <Outlet />
+        <Outlet {...props} />
       </ConfigProvider>
     );
   }
@@ -125,7 +132,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
       </div>
 
       <ConfigProvider locale={ja_JP}>
-        <Outlet />
+        <Outlet {...props} />
       </ConfigProvider>
     </div>
   );

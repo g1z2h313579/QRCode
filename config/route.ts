@@ -54,7 +54,12 @@ const getRoutes = (baseUrl: string) => {
           {
             name: '加盟店登録',
             path: `${baseUrl}/merchant/merchantRegister`,
-            component: './systemOperationPC/merchant/merchantRegister',
+            component: './systemOperationPC/merchant/merchantDetail',
+          },
+          {
+            name: '加盟店詳細',
+            path: `${baseUrl}/merchant/:merchantId`,
+            component: './systemOperationPC/merchant/merchantDetail',
           },
         ],
       },

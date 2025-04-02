@@ -1,19 +1,23 @@
-import { useBaseUrl } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
-import { history } from '@umijs/max';
-import { Button, Form, Table } from 'antd';
-import { ColumnsType } from 'antd/es/table/InternalTable';
+import { useParams } from '@umijs/max';
+import { Button, Form } from 'antd';
 import dayjs from 'dayjs';
-import { FunctionComponent } from 'react';
+import 'dayjs/locale/ja';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import weekday from 'dayjs/plugin/weekday';
+import { FunctionComponent, useMemo, useState } from 'react';
 import style from './index.less';
-
-interface merchantListProps {
+interface MerchantDetailProps {
   [props: string]: any;
 }
-
-const MerchantList: FunctionComponent<merchantListProps> = () => {
+dayjs.extend(weekday);
+dayjs.extend(localizedFormat);
+dayjs.locale('ja'); // 设置为日语
+const MerchantDetail: FunctionComponent<MerchantDetailProps> = () => {
   const [form] = Form.useForm();
-  const baseUrl = useBaseUrl();
+  const [disabled, setDisabled] = useState(true);
+  const params = useParams();
+  const merchantId = params.merchantId;
   const merchantForm: CustomizeFormProps[] = [
     {
       colProps: {
@@ -29,6 +33,9 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
             rules: [{ required: true, message: '加盟店IDを入力してください' }],
           },
           childrenType: 'input',
+          childrenProps: {
+            disabled: merchantId ? true : false,
+          },
         },
         {
           formItemProps: {
@@ -243,153 +250,106 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
     {
       colProps: {
         sm: 24,
-        md: 12,
-        xl: 8,
+        md: 24,
+        xl: 24,
       },
       formItems: [
         {
           formItemProps: {
-            name: 'registerDate',
-            label: '登録日',
+            name: 'attachment',
+            label: '添付ファイル',
           },
-          childrenType: 'dateRange',
+          childrenType: 'attachment',
           childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('registerDate', dateString);
+            action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+            onChange({ file, fileList }: { file: any; fileList: any[] }) {
+              if (file.status !== 'uploading') {
+                console.log(file, fileList);
+              }
+              if (file.status === 'done') {
+                form.setFieldValue('attachment', fileList);
+              }
             },
-          },
-        },
-        {
-          formItemProps: {
-            name: 'updateDate',
-            label: '更新日',
-          },
-          childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('updateDate', dateString);
-            },
-          },
-        },
-        {
-          formItemProps: {
-            name: 'deleteDate',
-            label: '削除日',
-          },
-          childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('deleteDate', dateString);
-            },
+            multiple: true,
           },
         },
       ],
     },
   ];
-
-  const columns: ColumnsType<any> = [
-    {
-      dataIndex: 'merchantId',
-      title: '加盟店ID',
-    },
-    {
-      dataIndex: 'merchantName',
-      title: '加盟店名',
-    },
-    {
-      dataIndex: 'status',
-      title: 'ステータス',
-    },
-    {
-      dataIndex: 'angecyName',
-      title: '代理店名',
-    },
-    {
-      dataIndex: 'industry',
-      title: '業種',
-    },
-    {
-      dataIndex: 'notificationNum',
-      title: '届出番号',
-    },
-
-    {
-      dataIndex: 'chargeName',
-      title: '担当者名',
-    },
-    {
-      dataIndex: 'chargeTel',
-      title: '担当者電話番号',
-    },
-    {
-      dataIndex: 'chargeEmail',
-      title: '担当者メールアドレス',
-    },
-  ];
-  const dataSource = [
-    {
-      key: '1',
-      merchantId: '1234567890',
-      merchantName: '加盟店名1',
-      status: '有効',
-      angecyName: '代理店名1',
-      industry: '業種1',
-      notificationNum: '届出番号1',
-      chargeName: '担当者名1',
-      chargeTel: '担当者電話番号1',
-      chargeEmail: '担当者メールアドレス1',
-    },
-    {
-      key: '2',
-      merchantId: '0987654321',
-      merchantName: '加盟店名2',
-      status: '無効',
-      angecyName: '代理店名2',
-      industry: '業種2',
-      notificationNum: '届出番号2',
-      chargeName: '担当者名2',
-      chargeTel: '担当者電話番号2',
-      chargeEmail: '担当者メールアドレス2',
-    },
-    {
-      key: '3',
-      merchantId: '1122334455',
-      merchantName: '加盟店名3',
-      status: '有効',
-      angecyName: '代理店名3',
-      industry: '業種3',
-      notificationNum: '届出番号3',
-      chargeName: '担当者名3',
-      chargeTel: '担当者電話番号3',
-      chargeEmail: '担当者メールアドレス3',
-    },
-    {
-      key: '4',
-      merchantId: '5566778899',
-      merchantName: '加盟店名4',
-      status: '無効',
-      angecyName: '代理店名4',
-      industry: '業種4',
-      notificationNum: '届出番号4',
-      chargeName: '担当者名4',
-      chargeTel: '担当者電話番号4',
-      chargeEmail: '担当者メールアドレス4',
-    },
-    {
-      key: '5',
-      merchantId: '9988776655',
-      merchantName: '加盟店名5',
-      status: '有効',
-      angecyName: '代理店名5',
-      industry: '業種5',
-      notificationNum: '届出番号5',
-      chargeName: '担当者名5',
-      chargeTel: '担当者電話番号5',
-      chargeEmail: '担当者メールアドレス5',
-    },
-  ];
+  const btn = useMemo(() => {
+    if (merchantId && disabled) {
+      return (
+        <div className={style.detailBtn}>
+          <div>
+            <Button
+              type={'primary'}
+              onClick={() => {
+                setDisabled(false);
+              }}
+            >
+              編集
+            </Button>
+            <Button>キャンセル</Button>
+            <Button>削除</Button>
+          </div>
+          <div>
+            <span className={style.dateName}>登録日</span>
+            <span className={style.date}>{`${dayjs(
+              form.getFieldValue('registerDate'),
+            ).format('YYYY年M月D日')}(${dayjs(
+              form.getFieldValue('registerDate'),
+            ).format('dd')})`}</span>
+            <span className={style.dateName}>更新日</span>
+            <span className={style.date}>{`${dayjs(
+              form.getFieldValue('updateDate'),
+            ).format('YYYY年M月D日')}(${dayjs(
+              form.getFieldValue('updateDate'),
+            ).format('dd')})`}</span>
+            <span className={style.dateName}>削除日</span>
+            <span className={style.date}>{`${dayjs(
+              form.getFieldValue('deleteDate'),
+            ).format('YYYY年M月D日')}(${dayjs(
+              form.getFieldValue('deleteDate'),
+            ).format('dd')})`}</span>
+          </div>
+        </div>
+      );
+    } else if (!merchantId) {
+      return (
+        <div className={style.detailBtn}>
+          <div>
+            <Button
+              type={'primary'}
+              onClick={() => {
+                // setDisabled(false);
+              }}
+            >
+              保存
+            </Button>
+            <Button>キャンセル</Button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className={style.detailBtn}>
+          <div>
+            <Button
+              type={'primary'}
+              onClick={() => {
+                // setDisabled(false);
+              }}
+            >
+              更新
+            </Button>
+            <Button>キャンセル</Button>
+          </div>
+        </div>
+      );
+    }
+  }, [merchantId, disabled]);
   return (
-    <div className={style.merchantList}>
+    <div>
       {merchantForm.map((item, index) => {
         return (
           <CustomizeForm
@@ -397,42 +357,13 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
             form={form}
             colProps={item.colProps}
             formItems={item.formItems}
+            disabled={merchantId ? disabled : false}
           />
         );
       })}
-      <div className={style.buttonWarp}>
-        <div className={style.left}>
-          <Button
-            type="primary"
-            onClick={() => {
-              console.log(form.getFieldsValue());
-              form.submit();
-            }}
-          >
-            検索
-          </Button>
-          <Button
-            onClick={() => {
-              form.resetFields();
-            }}
-          >
-            条件クリア
-          </Button>
-        </div>
-        <div className={style.right}>
-          <Button
-            type="primary"
-            onClick={() => {
-              history.push(`${baseUrl}/merchant/merchantRegister`);
-            }}
-          >
-            新規作成
-          </Button>
-        </div>
-      </div>
-      <Table columns={columns} dataSource={dataSource} scroll={{ y: 300 }} />
+      <div>{btn}</div>
     </div>
   );
 };
 
-export default MerchantList;
+export default MerchantDetail;

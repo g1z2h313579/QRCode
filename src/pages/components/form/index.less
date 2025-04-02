@@ -1,0 +1,33 @@
+.formContainer {
+  width: 100%;
+  border-top: 1px solid #e8e8e8;
+  background-color: #fff;
+
+  .childrenWarp {
+    height: 50px;
+    display: flex;
+    align-items: center;
+  }
+
+  :global {
+    .ant-form-item-label {
+      background-color: #f9f9f9;
+      margin-right: 10px;
+      width: 140px;
+      padding: 0 20px;
+      text-align: left;
+    }
+
+    .ant-upload-wrapper {
+      display: flex;
+
+      .ant-upload-select {
+        margin-right: 10px;
+      }
+
+      .ant-upload-list {
+        display: flex;
+      }
+    }
+  }
+}
