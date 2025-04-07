@@ -1,10 +1,14 @@
 import { ENV_FRANCHISEE, ENV_SYSTEMOPERATION, useEnvCode } from '@/constants';
 import { useMemo } from 'react';
+import dashboardAct from '../assets/img/dashboard-active.svg';
 import dashboard from '../assets/img/dashboard.png';
 import notice from '../assets/img/notice.png';
-import paymentAct from '../assets/img/payment-active.png';
+import paymentAct from '../assets/img/payment-active.svg';
 import payment from '../assets/img/payment.png';
+import productAct from '../assets/img/product-active.svg';
+import product from '../assets/img/product.svg';
 import qa from '../assets/img/qa.png';
+import settingAct from '../assets/img/setting-active.svg';
 import setting from '../assets/img/setting.png';
 import ticket from '../assets/img/ticket.svg';
 
@@ -87,13 +91,18 @@ export const useMenu = (pathname: string) => {
         },
         {
           label: '設定',
-          icon: <img src={setting} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname.includes('setting') ? settingAct : setting}
+              style={imgStyle}
+            />
+          ),
           key: 'setting',
           children: [
-            {
-              label: 'プロフィール',
-              key: 'profile',
-            },
+            // {
+            //   label: 'プロフィール',
+            //   key: 'profile',
+            // },
             {
               label: '管理者管理',
               key: 'admin',
@@ -118,7 +127,12 @@ export const useMenu = (pathname: string) => {
         {
           label: 'ダッシュボード',
           key: 'dashboard',
-          icon: <img src={dashboard} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname === 'dashboard' ? dashboardAct : dashboard}
+              style={imgStyle}
+            />
+          ),
         },
         {
           label: '決済管理',
@@ -137,7 +151,12 @@ export const useMenu = (pathname: string) => {
         },
         {
           label: '商品管理',
-          icon: <img src={ticket} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname.includes('product') ? productAct : product}
+              style={imgStyle}
+            />
+          ),
           key: 'product',
           children: [
             {
@@ -167,7 +186,12 @@ export const useMenu = (pathname: string) => {
         },
         {
           label: '設定',
-          icon: <img src={setting} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname.includes('setting') ? settingAct : setting}
+              style={imgStyle}
+            />
+          ),
           key: 'setting',
           children: [
             {

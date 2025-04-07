@@ -1,5 +1,6 @@
 import { useBaseUrl } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
+import { merchant } from '@/pages/entity';
 import { history } from '@umijs/max';
 import { Button, Form, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table/InternalTable';
@@ -24,7 +25,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'merchantId',
+            name: merchant.franchise_id.key,
             label: '加盟店ID',
             rules: [{ required: true, message: '加盟店IDを入力してください' }],
           },
@@ -32,7 +33,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
         },
         {
           formItemProps: {
-            name: 'merchantName',
+            name: merchant.franchise_name.key,
             label: '加盟店名',
             rules: [{ required: true, message: '加盟店名を入力してください' }],
           },
@@ -40,7 +41,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
         },
         {
           formItemProps: {
-            name: 'status',
+            name: merchant.status.key,
             label: 'ステータス',
             rules: [
               { required: true, message: 'ステータスを選択してください' },
@@ -50,7 +51,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
           childrenProps: {
             options: [
               { value: 1, label: '有効' },
-              { value: 2, label: '無効' },
+              { value: 0, label: '無効' },
             ],
           },
         },
@@ -65,7 +66,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'industry',
+            name: merchant.business_type.key,
             label: '業種',
           },
           childrenType: 'select',
@@ -75,22 +76,22 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
               { value: '2', label: '業種2' },
               { value: '3', label: '業種3' },
             ],
-            value: form.getFieldValue('industry'),
+            value: form.getFieldValue(merchant.business_type.key),
             onChange: (value: any) => {
-              form.setFieldValue('industry', value);
+              form.setFieldValue(merchant.business_type.key, value);
             },
           },
         },
         {
           formItemProps: {
-            name: 'notificationNum',
+            name: merchant.store_number.key,
             label: '届出番号',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'angecyName',
+            name: merchant.agent_name.key,
             label: '代理店名',
             // rules: [{ required: true, message: 'ステータスを選択してください' }],
           },
@@ -107,21 +108,21 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'chargeName',
+            name: merchant.manager_name.key,
             label: '担当者名',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'chargeTel',
+            name: merchant.manager_phone.key,
             label: '担当者電話番号',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'chargeEmail',
+            name: merchant.manager_email.key,
             label: '担当者メール',
           },
           childrenType: 'input',
@@ -137,21 +138,21 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'postalCode',
+            name: merchant.postal_code.key,
             label: '郵便番号',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'address',
+            name: merchant.prefecture.key,
             label: '都道府県',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'address2',
+            name: merchant.city.key,
             label: '市区町村',
           },
           childrenType: 'input',
@@ -167,14 +168,14 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'address3',
+            name: merchant.street_address.key,
             label: '町域·番地',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'address4',
+            name: merchant.building_name.key,
             label: '建物名·部屋番号',
           },
           childrenType: 'input',
@@ -190,21 +191,21 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'bankID',
+            name: merchant.bank_id.key,
             label: '銀行ID',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'branchID',
+            name: merchant.branch_id.key,
             label: '支店ID',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'bankAccountType',
+            name: merchant.account_type.key,
             label: '口座種類',
           },
           childrenType: 'radio',
@@ -226,14 +227,14 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'bankAccount',
+            name: merchant.account_number.key,
             label: '口座番号',
           },
           childrenType: 'input',
         },
         {
           formItemProps: {
-            name: 'bankAccountName',
+            name: merchant.account_holder.key,
             label: '口座名義人',
           },
           childrenType: 'input',
@@ -249,7 +250,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       formItems: [
         {
           formItemProps: {
-            name: 'registerDate',
+            name: merchant.registration_date.key,
             label: '登録日',
           },
           childrenType: 'dateRange',
@@ -261,7 +262,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
         },
         {
           formItemProps: {
-            name: 'updateDate',
+            name: merchant.update_date.key,
             label: '更新日',
           },
           childrenType: 'dateRange',
@@ -273,7 +274,7 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
         },
         {
           formItemProps: {
-            name: 'deleteDate',
+            name: merchant.deletion_date.key,
             label: '削除日',
           },
           childrenType: 'dateRange',
@@ -289,105 +290,44 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
 
   const columns: ColumnsType<any> = [
     {
-      dataIndex: 'merchantId',
+      dataIndex: merchant.franchise_id.key,
       title: '加盟店ID',
     },
     {
-      dataIndex: 'merchantName',
+      dataIndex: merchant.franchise_name.key,
       title: '加盟店名',
     },
     {
-      dataIndex: 'status',
+      dataIndex: merchant.status.key,
       title: 'ステータス',
     },
     {
-      dataIndex: 'angecyName',
+      dataIndex: merchant.agent_name.key,
       title: '代理店名',
     },
     {
-      dataIndex: 'industry',
+      dataIndex: merchant.business_type.key,
       title: '業種',
     },
     {
-      dataIndex: 'notificationNum',
+      dataIndex: merchant.store_number.key,
       title: '届出番号',
     },
 
     {
-      dataIndex: 'chargeName',
+      dataIndex: merchant.manager_name.key,
       title: '担当者名',
     },
     {
-      dataIndex: 'chargeTel',
+      dataIndex: merchant.manager_phone.key,
       title: '担当者電話番号',
     },
     {
-      dataIndex: 'chargeEmail',
+      dataIndex: merchant.manager_email.key,
       title: '担当者メールアドレス',
     },
   ];
-  const dataSource = [
-    {
-      key: '1',
-      merchantId: '1234567890',
-      merchantName: '加盟店名1',
-      status: '有効',
-      angecyName: '代理店名1',
-      industry: '業種1',
-      notificationNum: '届出番号1',
-      chargeName: '担当者名1',
-      chargeTel: '担当者電話番号1',
-      chargeEmail: '担当者メールアドレス1',
-    },
-    {
-      key: '2',
-      merchantId: '0987654321',
-      merchantName: '加盟店名2',
-      status: '無効',
-      angecyName: '代理店名2',
-      industry: '業種2',
-      notificationNum: '届出番号2',
-      chargeName: '担当者名2',
-      chargeTel: '担当者電話番号2',
-      chargeEmail: '担当者メールアドレス2',
-    },
-    {
-      key: '3',
-      merchantId: '1122334455',
-      merchantName: '加盟店名3',
-      status: '有効',
-      angecyName: '代理店名3',
-      industry: '業種3',
-      notificationNum: '届出番号3',
-      chargeName: '担当者名3',
-      chargeTel: '担当者電話番号3',
-      chargeEmail: '担当者メールアドレス3',
-    },
-    {
-      key: '4',
-      merchantId: '5566778899',
-      merchantName: '加盟店名4',
-      status: '無効',
-      angecyName: '代理店名4',
-      industry: '業種4',
-      notificationNum: '届出番号4',
-      chargeName: '担当者名4',
-      chargeTel: '担当者電話番号4',
-      chargeEmail: '担当者メールアドレス4',
-    },
-    {
-      key: '5',
-      merchantId: '9988776655',
-      merchantName: '加盟店名5',
-      status: '有効',
-      angecyName: '代理店名5',
-      industry: '業種5',
-      notificationNum: '届出番号5',
-      chargeName: '担当者名5',
-      chargeTel: '担当者電話番号5',
-      chargeEmail: '担当者メールアドレス5',
-    },
-  ];
+  const dataSource: any[] = [];
   return (
     <div className={style.merchantList}>
       {merchantForm.map((item, index) => {

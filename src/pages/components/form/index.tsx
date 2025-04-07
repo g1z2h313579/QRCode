@@ -1,3 +1,4 @@
+import uploadImg from '@/assets/img/uploadImage.png';
 import { UploadOutlined } from '@ant-design/icons';
 import {
   Button,
@@ -8,6 +9,7 @@ import {
   Form,
   FormInstance,
   Input,
+  InputNumber,
   Radio,
   Row,
   Select,
@@ -23,7 +25,7 @@ export interface CustomizeFormProps {
 }
 interface formItems {
   formItemProps: {
-    name: string;
+    name: string | string[];
     label: string;
     rules?: any[];
     disabled?: boolean;
@@ -34,12 +36,18 @@ interface formItems {
     | 'select'
     | 'dateRange'
     | 'datePicker'
-    | 'attachment';
+    | 'attachment'
+    | 'numberRange'
+    | 'number'
+    | 'image'
+    | 'textarea';
   childrenProps?: any;
 }
 const { RangePicker } = DatePicker;
+
 const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
   const { form, colProps, formItems, disabled = false } = props;
+
   const childrenTypeMap = (
     typename:
       | 'input'
@@ -47,23 +55,88 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
       | 'select'
       | 'dateRange'
       | 'datePicker'
-      | 'attachment',
-    props: any = {},
+      | 'attachment'
+      | 'numberRange'
+      | 'number'
+      | 'image'
+      | 'textarea',
+    props: any,
+    formItemValueProps: any,
   ): JSX.Element => {
     const childrenMap = {
-      input: <Input {...props} />,
-      radio: <Radio.Group {...props} />,
-      select: <Select {...props} />,
+      input: <Input {...formItemValueProps} {...props} />,
+      radio: <Radio.Group {...formItemValueProps} {...props} />,
+      select: <Select {...formItemValueProps} {...props} />,
       dateRange: <RangePicker {...props} />,
       datePicker: <DatePicker {...props} />,
       attachment: (
-        <Upload {...props}>
-          <Button icon={<UploadOutlined />}>Upload</Button>
+        <Upload {...formItemValueProps} {...props}>
+          <Button icon={<UploadOutlined />}>アップロード</Button>
         </Upload>
       ),
+      image: (
+        <Upload {...formItemValueProps} {...props} style={{ height: '300px' }}>
+          <div>
+            <img src={uploadImg} alt="upload" />
+            <div style={{ padding: '0 10px' }}>
+              クリックまたはドラッグでJPG、PNGファイルをアップロード
+            </div>
+          </div>
+        </Upload>
+      ),
+      numberRange: <InputNumber {...formItemValueProps} {...props} />,
+      number: (
+        <InputNumber
+          style={{ width: '100%' }}
+          {...formItemValueProps}
+          {...props}
+        />
+      ),
+      textarea: <Input.TextArea {...formItemValueProps} {...props} />,
     };
     return childrenMap[typename];
   };
+  const FormChildrenWrap = (formItemValueProps: any) => {
+    return (
+      <div className={style.childrenWarp}>
+        {childrenTypeMap(
+          formItemValueProps.item.childrenType,
+          formItemValueProps.item.childrenProps,
+          formItemValueProps,
+        )}
+      </div>
+    );
+  };
+  const formItemRender = (item: formItems) => {
+    if (item.childrenType === 'numberRange') {
+      return (
+        <Form.List name={item.formItemProps.name[0]}>
+          {() => {
+            return (
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Form.Item
+                  name={item.formItemProps.name[1]}
+                  label={item.formItemProps.label}
+                >
+                  <FormChildrenWrap item={item} />
+                </Form.Item>
+                <span style={{ marginRight: '12px' }}>~</span>
+                <Form.Item name={item.formItemProps.name[2]}>
+                  <FormChildrenWrap item={item} />
+                </Form.Item>
+              </div>
+            );
+          }}
+        </Form.List>
+      );
+    }
+    return (
+      <Form.Item {...item.formItemProps}>
+        <FormChildrenWrap item={item} />
+      </Form.Item>
+    );
+  };
+
   return (
     <Row>
       <Form
@@ -84,11 +157,7 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
                   },
                 }}
               >
-                <Form.Item {...item.formItemProps}>
-                  <div className={style.childrenWarp}>
-                    {childrenTypeMap(item.childrenType, item.childrenProps)}
-                  </div>
-                </Form.Item>
+                {formItemRender(item)}
               </ConfigProvider>
             </Col>
           );
