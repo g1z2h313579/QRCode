@@ -1,8 +1,8 @@
+import { dayjs } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
 import { user } from '@/pages/entity';
 import { useParams } from '@umijs/max';
 import { Button, Form } from 'antd';
-import dayjs from 'dayjs';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import style from './index.less';
 interface AdminDetailProps {

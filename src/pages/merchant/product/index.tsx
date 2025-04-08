@@ -1,10 +1,9 @@
-import { useBaseUrl } from '@/constants';
+import { dayjs, useBaseUrl } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
 import { product } from '@/pages/entity';
 import { history } from '@umijs/max';
 import { Button, Form, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import dayjs from 'dayjs';
 import { FunctionComponent } from 'react';
 import style from './index.less';
 interface ProductListProps {

@@ -84,31 +84,22 @@ const getRoutes = (baseUrl: string) => {
           },
         ],
       },
-      // {
-      //   name: '決済一覧',
-      //   path: `${baseUrl}/payment/paymentList`,
-      //   component: './systemOperationPC/payment/paymentList',
-      // },
-      // {
-      //   name: '決済登録',
-      //   path: `${baseUrl}/payment/paymentRegister`,
-      //   component: './systemOperationPC/payment/paymentRegister',
-      // },
-      // {
-      //   name: '決済履歴管理',
-      //   path: `${baseUrl}/deposit`,
-      //   component: './systemOperationPC/deposit/deposit',
-      // },
-      // {
-      //   name: 'お知らせ一覧',
-      //   path: `${baseUrl}/notice/noticeList`,
-      //   component: './systemOperationPC/notice/noticeList',
-      // },
-      // {
-      //   name: 'お知らせ登録',
-      //   path: `${baseUrl}/notice/noticeRegister`,
-      //   component: './systemOperationPC/notice/noticeRegister',
-      // },
+      {
+        name: '決済履歴管理',
+        path: `${baseUrl}/settlement`,
+        routes: [
+          {
+            name: '決済履歴一覧',
+            path: `${baseUrl}/settlement/settlementList`,
+            component: './systemOperationPC/settlement/settlementList',
+          },
+          {
+            name: '決済履歴詳細',
+            path: `${baseUrl}/settlement/:settlementId`,
+            component: './systemOperationPC/settlement/settlementDetail',
+          },
+        ],
+      },
     ],
     [ENV_MOBILE]: [
       {

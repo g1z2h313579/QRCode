@@ -15,6 +15,7 @@ import {
   Select,
   Upload,
 } from 'antd';
+import dayjs from 'dayjs';
 import { FunctionComponent } from 'react';
 import style from './index.less';
 export interface CustomizeFormProps {
@@ -40,7 +41,8 @@ interface formItems {
     | 'numberRange'
     | 'number'
     | 'image'
-    | 'textarea';
+    | 'textarea'
+    | 'text';
   childrenProps?: any;
 }
 const { RangePicker } = DatePicker;
@@ -59,16 +61,54 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
       | 'numberRange'
       | 'number'
       | 'image'
-      | 'textarea',
+      | 'textarea'
+      | 'text',
     props: any,
     formItemValueProps: any,
   ): JSX.Element => {
+    console.log(
+      form?.getFieldValue(formItemValueProps.item.formItemProps.name),
+      '-----',
+    );
     const childrenMap = {
       input: <Input {...formItemValueProps} {...props} />,
       radio: <Radio.Group {...formItemValueProps} {...props} />,
       select: <Select {...formItemValueProps} {...props} />,
-      dateRange: <RangePicker {...props} />,
-      datePicker: <DatePicker {...props} />,
+      dateRange: (form: any) => {
+        return (
+          <RangePicker
+            {...{
+              ...formItemValueProps,
+              onChange: (value: dayjs.ConfigType, dateString: string[]) => {
+                form.setFieldValue(
+                  formItemValueProps.item.formItemProps.name,
+                  dateString,
+                );
+              },
+              value: undefined,
+            }}
+            {...props}
+          />
+        );
+      },
+      datePicker: (form: any) => {
+        return (
+          <DatePicker
+            style={{ width: '100%' }}
+            {...{
+              ...formItemValueProps,
+              onChange: (value: dayjs.ConfigType, dateString: string) => {
+                form.setFieldValue(
+                  formItemValueProps.item.formItemProps.name,
+                  dateString,
+                );
+              },
+              value: undefined,
+            }}
+            {...props}
+          />
+        );
+      },
       attachment: (
         <Upload {...formItemValueProps} {...props}>
           <Button icon={<UploadOutlined />}>アップロード</Button>
@@ -93,8 +133,15 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
         />
       ),
       textarea: <Input.TextArea {...formItemValueProps} {...props} />,
+      text: (
+        <span {...props}>
+          {form?.getFieldValue(formItemValueProps.item.formItemProps.name)}
+        </span>
+      ),
     };
-    return childrenMap[typename];
+    return typeof childrenMap[typename] === 'function'
+      ? childrenMap[typename](form)
+      : childrenMap[typename];
   };
   const FormChildrenWrap = (formItemValueProps: any) => {
     return (

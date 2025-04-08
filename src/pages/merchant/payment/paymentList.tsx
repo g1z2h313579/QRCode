@@ -1,6 +1,6 @@
+import { dayjs } from '@/constants';
 import { Button, Col, DatePicker, Input, Radio, Row, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
 import { FunctionComponent, useState } from 'react';
 import './payment.less';

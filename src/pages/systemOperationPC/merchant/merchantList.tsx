@@ -4,7 +4,6 @@ import { merchant } from '@/pages/entity';
 import { history } from '@umijs/max';
 import { Button, Form, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table/InternalTable';
-import dayjs from 'dayjs';
 import { FunctionComponent } from 'react';
 import style from './index.less';
 
@@ -254,11 +253,6 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
             label: '登録日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('registerDate', dateString);
-            },
-          },
         },
         {
           formItemProps: {
@@ -266,11 +260,6 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
             label: '更新日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('updateDate', dateString);
-            },
-          },
         },
         {
           formItemProps: {
@@ -278,11 +267,6 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
             label: '削除日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('deleteDate', dateString);
-            },
-          },
         },
       ],
     },
@@ -292,6 +276,17 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
     {
       dataIndex: merchant.franchise_id.key,
       title: '加盟店ID',
+      render: (value: any) => {
+        return (
+          <a
+            onClick={() => {
+              history.push(`${baseUrl}/merchant/${value}`);
+            }}
+          >
+            {value}
+          </a>
+        );
+      },
     },
     {
       dataIndex: merchant.franchise_name.key,
@@ -327,7 +322,21 @@ const MerchantList: FunctionComponent<merchantListProps> = () => {
       title: '担当者メールアドレス',
     },
   ];
-  const dataSource: any[] = [];
+  const dataSource: any[] = [
+    // 测试数据
+    {
+      key: '1',
+      [merchant.franchise_id.key]: '12345',
+      [merchant.franchise_name.key]: 'テスト加盟店',
+      [merchant.status.key]: 1,
+      [merchant.agent_name.key]: 'テスト代理店',
+      [merchant.business_type.key]: '1',
+      [merchant.store_number.key]: '67890',
+      [merchant.manager_name.key]: '山田太郎',
+      [merchant.manager_phone.key]: '090-1234-5678',
+      [merchant.manager_email.key]: 'test@example.com',
+    },
+  ];
   return (
     <div className={style.merchantList}>
       {merchantForm.map((item, index) => {

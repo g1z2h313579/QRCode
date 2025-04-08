@@ -4,7 +4,6 @@ import { user } from '@/pages/entity';
 import { history } from '@umijs/max';
 import { Button, Form, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table/InternalTable';
-import dayjs from 'dayjs';
 import { FunctionComponent } from 'react';
 import style from './index.less';
 interface AdminListProps {
@@ -71,11 +70,6 @@ const AdminList: FunctionComponent<AdminListProps> = () => {
             label: '登録日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('registerDate', dateString);
-            },
-          },
         },
         {
           formItemProps: {
@@ -83,11 +77,6 @@ const AdminList: FunctionComponent<AdminListProps> = () => {
             label: '更新日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('updateDate', dateString);
-            },
-          },
         },
         {
           formItemProps: {
@@ -95,11 +84,6 @@ const AdminList: FunctionComponent<AdminListProps> = () => {
             label: '削除日',
           },
           childrenType: 'dateRange',
-          childrenProps: {
-            onChange: (value: dayjs.ConfigType, dateString: string[]) => {
-              form.setFieldValue('deleteDate', dateString);
-            },
-          },
         },
       ],
     },

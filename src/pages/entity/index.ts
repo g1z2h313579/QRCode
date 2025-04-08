@@ -74,3 +74,24 @@ export const user = {
   deletion_date: { key: 'deletionDate', label: '削除日' },
   role: { key: 'role', label: '役割' },
 };
+
+export const settlement = {
+  settlement_id: { key: 'settlementId', label: '決済ID' },
+  settlement_type: { key: 'settlementType', label: '決済区分' },
+  settlement_time: { key: 'settlementTime', label: '決済日時' },
+  franchise_id: { key: 'franchiseId', label: '加盟店ID' },
+  order_id: { key: 'orderId', label: '注文ID' },
+  user_id: { key: 'userId', label: '利用者ID' },
+  settlement_amount: { key: 'settlementAmount', label: '金額' },
+  settlement_amount_from: { key: 'settlementAmountFrom', label: '金額' },
+  settlement_amount_to: { key: 'settlementAmountTo', label: '金額' },
+  status: { key: 'status', label: '決済ステイタス' },
+  registration_date: { key: 'registrationDate', label: '登録日' },
+  update_date: { key: 'updateDate', label: '更新日' },
+  deletion_date: { key: 'deletionDate', label: '削除日' },
+  franchise_name: { key: 'franchiseName', label: '加盟店名' },
+  product_name: { key: 'productName', label: '商品名' },
+  product_price: { key: 'productPrice', label: '商品金額' },
+  error_code: { key: 'errorCode', label: 'エラーコード' },
+  error_message: { key: 'errorMessage', label: 'エラー内容' },
+};

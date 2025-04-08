@@ -1,18 +1,13 @@
+import { dayjs } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
 import { useParams } from '@umijs/max';
 import { Button, Form } from 'antd';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ja';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import weekday from 'dayjs/plugin/weekday';
 import { FunctionComponent, useMemo, useState } from 'react';
 import style from './index.less';
 interface MerchantDetailProps {
   [props: string]: any;
 }
-dayjs.extend(weekday);
-dayjs.extend(localizedFormat);
-dayjs.locale('ja'); // 设置为日语
+
 const MerchantDetail: FunctionComponent<MerchantDetailProps> = () => {
   const [form] = Form.useForm();
   const [disabled, setDisabled] = useState(true);
