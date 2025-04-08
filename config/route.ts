@@ -63,6 +63,27 @@ const getRoutes = (baseUrl: string) => {
           },
         ],
       },
+      {
+        name: '設定',
+        path: `${baseUrl}/setting`,
+        routes: [
+          {
+            name: '管理者設定',
+            path: `${baseUrl}/setting/admin`,
+            component: './systemOperationPC/setting/adminList',
+          },
+          {
+            name: '管理者登録',
+            path: `${baseUrl}/setting/adminRegister`,
+            component: './systemOperationPC/setting/adminDetail',
+          },
+          {
+            name: '管理者詳細',
+            path: `${baseUrl}/setting/:adminId`,
+            component: './systemOperationPC/setting/adminDetail',
+          },
+        ],
+      },
       // {
       //   name: '決済一覧',
       //   path: `${baseUrl}/payment/paymentList`,

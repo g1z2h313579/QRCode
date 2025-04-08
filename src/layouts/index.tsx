@@ -33,7 +33,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
       setKeyPath([...path.slice(2).reverse()]);
     }
   }, []);
-  const menu = useMenu(current);
+  const menu = useMenu(keyPath);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);

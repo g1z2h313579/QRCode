@@ -62,3 +62,15 @@ export const productOption = {
   update_date: { key: 'updateDate', label: '更新日' },
   deletion_date: { key: 'deletionDate', label: '削除日' },
 };
+
+export const user = {
+  user_id: { key: 'userId', label: 'ユーザーID' },
+  user_name: { key: 'userName', label: 'ユーザー名' },
+  email: { key: 'email', label: 'メールアドレス' },
+  password: { key: 'password', label: 'パスワード' },
+  status: { key: 'status', label: 'ステイタス' },
+  registration_date: { key: 'registrationDate', label: '登録日' },
+  update_date: { key: 'updateDate', label: '更新日' },
+  deletion_date: { key: 'deletionDate', label: '削除日' },
+  role: { key: 'role', label: '役割' },
+};

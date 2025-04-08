@@ -12,7 +12,7 @@ import settingAct from '../assets/img/setting-active.svg';
 import setting from '../assets/img/setting.png';
 import ticket from '../assets/img/ticket.svg';
 
-export const useMenu = (pathname: string) => {
+export const useMenu = (pathname: string[]) => {
   const imgStyle = { verticalAlign: 'middle', marginBottom: '4px' };
   const envCode = useEnvCode();
   const menu: any[] = useMemo(() => {
@@ -21,12 +21,22 @@ export const useMenu = (pathname: string) => {
         {
           label: 'ダッシュボード',
           key: 'dashboard',
-          icon: <img src={dashboard} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname.includes('dashboard') ? dashboardAct : dashboard}
+              style={imgStyle}
+            />
+          ),
         },
         {
           label: '加盟店管理',
           key: 'merchant',
-          icon: <img src={dashboard} style={imgStyle} />,
+          icon: (
+            <img
+              src={pathname.includes('merchant') ? productAct : product}
+              style={imgStyle}
+            />
+          ),
           children: [
             {
               label: '加盟店一覧',
@@ -43,7 +53,7 @@ export const useMenu = (pathname: string) => {
           key: 'payment',
           icon: (
             <img
-              src={pathname === 'paymentList' ? paymentAct : payment}
+              src={pathname.includes('paymentList') ? paymentAct : payment}
               style={imgStyle}
             />
           ),
@@ -129,7 +139,7 @@ export const useMenu = (pathname: string) => {
           key: 'dashboard',
           icon: (
             <img
-              src={pathname === 'dashboard' ? dashboardAct : dashboard}
+              src={pathname.includes('dashboard') ? dashboardAct : dashboard}
               style={imgStyle}
             />
           ),
@@ -139,7 +149,7 @@ export const useMenu = (pathname: string) => {
           key: 'payment',
           icon: (
             <img
-              src={pathname === 'paymentList' ? paymentAct : payment}
+              src={pathname.includes('paymentList') ? paymentAct : payment}
               style={imgStyle}
             />
           ),

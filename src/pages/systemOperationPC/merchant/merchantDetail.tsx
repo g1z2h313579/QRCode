@@ -277,6 +277,28 @@ const MerchantDetail: FunctionComponent<MerchantDetailProps> = () => {
     },
   ];
   const btn = useMemo(() => {
+    const date = (
+      <div>
+        <span className={style.dateName}>登録日</span>
+        <span className={style.date}>{`${dayjs(
+          form.getFieldValue('registerDate'),
+        ).format('YYYY年M月D日')}(${dayjs(
+          form.getFieldValue('registerDate'),
+        ).format('dd')})`}</span>
+        <span className={style.dateName}>更新日</span>
+        <span className={style.date}>{`${dayjs(
+          form.getFieldValue('updateDate'),
+        ).format('YYYY年M月D日')}(${dayjs(
+          form.getFieldValue('updateDate'),
+        ).format('dd')})`}</span>
+        <span className={style.dateName}>削除日</span>
+        <span className={style.date}>{`${dayjs(
+          form.getFieldValue('deleteDate'),
+        ).format('YYYY年M月D日')}(${dayjs(
+          form.getFieldValue('deleteDate'),
+        ).format('dd')})`}</span>
+      </div>
+    );
     if (merchantId && disabled) {
       return (
         <div className={style.detailBtn}>
@@ -292,26 +314,7 @@ const MerchantDetail: FunctionComponent<MerchantDetailProps> = () => {
             <Button>キャンセル</Button>
             <Button>削除</Button>
           </div>
-          <div>
-            <span className={style.dateName}>登録日</span>
-            <span className={style.date}>{`${dayjs(
-              form.getFieldValue('registerDate'),
-            ).format('YYYY年M月D日')}(${dayjs(
-              form.getFieldValue('registerDate'),
-            ).format('dd')})`}</span>
-            <span className={style.dateName}>更新日</span>
-            <span className={style.date}>{`${dayjs(
-              form.getFieldValue('updateDate'),
-            ).format('YYYY年M月D日')}(${dayjs(
-              form.getFieldValue('updateDate'),
-            ).format('dd')})`}</span>
-            <span className={style.dateName}>削除日</span>
-            <span className={style.date}>{`${dayjs(
-              form.getFieldValue('deleteDate'),
-            ).format('YYYY年M月D日')}(${dayjs(
-              form.getFieldValue('deleteDate'),
-            ).format('dd')})`}</span>
-          </div>
+          {date}
         </div>
       );
     } else if (!merchantId) {
@@ -344,6 +347,7 @@ const MerchantDetail: FunctionComponent<MerchantDetailProps> = () => {
             </Button>
             <Button>キャンセル</Button>
           </div>
+          {date}
         </div>
       );
     }
