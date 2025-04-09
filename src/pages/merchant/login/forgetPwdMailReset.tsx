@@ -16,7 +16,6 @@ const ForgetPwdMailReset: FunctionComponent<ForgetPwdMailResetProps> = () => {
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
     history.push(`${baseUrl}/dashboard`);
-    location.reload();
   };
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (

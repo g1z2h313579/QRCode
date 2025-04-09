@@ -62,10 +62,6 @@ export const useMenu = (pathname: string[]) => {
               label: '決済履歴一覧',
               key: 'settlementList',
             },
-            {
-              label: '決済履歴詳細',
-              key: 'settlementDetail',
-            },
           ],
         },
         {
@@ -155,14 +151,20 @@ export const useMenu = (pathname: string[]) => {
           ),
         },
         {
-          label: '決済管理',
-          key: 'payment',
+          label: '決済履歴管理',
+          key: 'settlement',
           icon: (
             <img
-              src={pathname.includes('paymentList') ? paymentAct : payment}
+              src={pathname.includes('settlement') ? paymentAct : payment}
               style={imgStyle}
             />
           ),
+          children: [
+            {
+              label: '決済履歴一覧',
+              key: 'settlementList',
+            },
+          ],
         },
         {
           label: '入金管理',

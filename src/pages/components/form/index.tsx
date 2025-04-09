@@ -66,10 +66,6 @@ const CustomizeForm: FunctionComponent<CustomizeFormProps> = (props) => {
     props: any,
     formItemValueProps: any,
   ): JSX.Element => {
-    console.log(
-      form?.getFieldValue(formItemValueProps.item.formItemProps.name),
-      '-----',
-    );
     const childrenMap = {
       input: <Input {...formItemValueProps} {...props} />,
       radio: <Radio.Group {...formItemValueProps} {...props} />,

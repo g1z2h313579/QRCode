@@ -19,7 +19,6 @@ const Login: FunctionComponent<LoginProps> = () => {
     if (values.username === 'admin' && values.password === 'admin') {
       message.success('ログイン成功');
       history.push(`${baseUrl}/dashboard`);
-      location.reload();
       return;
     }
     try {

@@ -1,9 +1,10 @@
-import { dayjs, useBaseUrl } from '@/constants';
+import { useBaseUrl } from '@/constants';
 import CustomizeForm, { CustomizeFormProps } from '@/pages/components/form';
 import { product } from '@/pages/entity';
 import { history } from '@umijs/max';
 import { Button, Form, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
 import { FunctionComponent } from 'react';
 import style from './index.less';
 interface ProductListProps {
@@ -73,18 +74,6 @@ const ProductList: FunctionComponent<ProductListProps> = () => {
             // rules: [{ required: true, message: '加盟店IDを入力してください' }],
           },
           childrenType: 'numberRange',
-          childrenProps: {
-            from: {
-              // onChange: (value: any) => {
-              //   form.setFieldValue(form.getFieldValue(product.price.key)[0], value);
-              // }
-            },
-            to: {
-              // onChange: (value: any) => {
-              //   form.setFieldValue(form.getFieldValue(product.price.key)[1], value);
-              // }
-            },
-          },
         },
         {
           formItemProps: {
@@ -156,6 +145,17 @@ const ProductList: FunctionComponent<ProductListProps> = () => {
     {
       dataIndex: product.products_id.key,
       title: '商品ID',
+      render: (value: any) => {
+        return (
+          <a
+            onClick={() => {
+              history.push(`${baseUrl}/product/${value}`);
+            }}
+          >
+            {value}
+          </a>
+        );
+      },
     },
     {
       dataIndex: product.product_name.key,
@@ -184,6 +184,41 @@ const ProductList: FunctionComponent<ProductListProps> = () => {
     {
       dataIndex: product.deletion_date.key,
       title: '削除日',
+    },
+  ];
+  const dataSource = [
+    {
+      key: '1',
+      [product.products_id.key]: '1',
+      [product.product_name.key]: '商品A',
+      [product.status.key]: '有効',
+      [product.price.key]: 1000,
+      [product.product_type.key]: '商品',
+      [product.registration_date.key]: '2023-01-01',
+      [product.update_date.key]: '2023-01-10',
+      [product.deletion_date.key]: null,
+    },
+    {
+      key: '2',
+      [product.products_id.key]: '2',
+      [product.product_name.key]: '商品B',
+      [product.status.key]: '無効',
+      [product.price.key]: 2000,
+      [product.product_type.key]: 'オプション商品',
+      [product.registration_date.key]: '2023-02-01',
+      [product.update_date.key]: '2023-02-10',
+      [product.deletion_date.key]: '2023-03-01',
+    },
+    {
+      key: '3',
+      [product.products_id.key]: '3',
+      [product.product_name.key]: '商品C',
+      [product.status.key]: '有効',
+      [product.price.key]: 1500,
+      [product.product_type.key]: '商品',
+      [product.registration_date.key]: '2023-03-01',
+      [product.update_date.key]: '2023-03-10',
+      [product.deletion_date.key]: null,
     },
   ];
   return (
@@ -228,7 +263,7 @@ const ProductList: FunctionComponent<ProductListProps> = () => {
           </Button>
         </div>
       </div>
-      <Table columns={columns} dataSource={[]} />
+      <Table columns={columns} dataSource={dataSource} />
     </div>
   );
 };

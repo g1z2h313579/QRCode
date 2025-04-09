@@ -208,6 +208,22 @@ const getRoutes = (baseUrl: string) => {
           },
         ],
       },
+      {
+        name: '決済履歴管理',
+        path: `${baseUrl}/settlement`,
+        routes: [
+          {
+            name: '決済履歴一覧',
+            path: `${baseUrl}/settlement/settlementList`,
+            component: './merchant/settlement/settlementList',
+          },
+          {
+            name: '決済履歴詳細',
+            path: `${baseUrl}/settlement/:settlementId`,
+            component: './merchant/settlement/settlementDetail',
+          },
+        ],
+      },
     ],
   };
 };
